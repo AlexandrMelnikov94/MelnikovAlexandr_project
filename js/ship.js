@@ -2,9 +2,13 @@
 
   var fieldWidth = 1200;
   var playerWidth = 100;
+  var bulletWidth = 50;
+  var area = document.getElementById('field');
   var player = document.getElementById('player');
+  var bullet = document.getElementById('bullet');
 
   var mainPlayer = new Player(player);
+  var newBullet = new Bullet(bullet);
 
   var RequestAnimationFrame =
     window.requestAnimationFrame ||
@@ -30,6 +34,7 @@
     }
   }
 
+// Движение
   function movePlayer(e) {
     if (e.keyCode === 37) {
       mainPlayer.speedPlayerX = -10;
@@ -37,16 +42,44 @@
     if (e.keyCode === 39) {
       mainPlayer.speedPlayerX = 10;
     }
+    if (e.keyCode === 32) {
+      newBullet.fireBullet();
+    }
   }
 
   function stopPlayerMove() {
     mainPlayer.speedPlayerX = 0;
   }
 
+  //Стрельба
+
+
+  function Bullet (bullet) {
+    this.speedY = 10;
+    this.Update = function () {
+      bullet.style.top = bullet.offsetTop - this.speedY + 'px';
+    }
+    this.createBulletElement = function () {
+      bullet = document.createElement('img');
+      bullet.src = 'img/bullet.png';
+      bullet.id = 'bullet';
+      bullet.style.bottom = playerWidth + 'px';
+      bullet.style.left = player.style.left;
+      return bullet;
+    }
+    this.fireBullet = function () {
+      bullet = this.createBulletElement()
+      area.appendChild(bullet);
+    }
+  }
+
+
+
   //-----------------------------------------------------------------------------------------------------------
 
   function Start() {
-    mainPlayer.Update ();
+    newBullet.Update();
+    mainPlayer.Update();
     RequestAnimationFrame(Start);
   }
 
@@ -54,7 +87,9 @@
     RequestAnimationFrame(Start);
   }
 
+
   window.onload = initGame;
   window.onkeydown = movePlayer;
   window.onkeyup = stopPlayerMove;
+//
 }());
