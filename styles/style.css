@@ -26,3 +26,8 @@ body {
   width: 100px;
   bottom: 0;
 }
+
+#bullet {
+  position: absolute;
+  bottom: 0;
+}
