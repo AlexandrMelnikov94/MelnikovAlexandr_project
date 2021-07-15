@@ -91,5 +91,5 @@
   window.onload = initGame;
   window.onkeydown = movePlayer;
   window.onkeyup = stopPlayerMove;
-
+//
 }());
