@@ -1,33 +1,37 @@
 body {
-  margin: 0;
-  padding: 0;
-}
-.wrapper{
-  height: 100vh;
+  position: fixed;
+  background: black;
   width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  height: 100%;
 }
 
-#field {
-  position: relative;
-  background-image: url("../img/field.jpg");
-  background-size: cover;
-  background-position: center;
-  height: 100vh;
-  width: 1200px;
+#background {
+  width: 100%;
+  height: 100%;
 }
 
 #player {
   position: absolute;
-  background-image: url("../img/spaceship.png");
-  height: 128px;
+  background: url("../img/spaceship.png");
+  background-size: cover;
   width: 100px;
-  bottom: 0;
+  height: 128px;
+  z-index: 10;
 }
 
-#bullet {
+.bullets {
   position: absolute;
-  bottom: 0;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  animation: shoot 2s linear forwards;
+}
+
+@keyframes shoot  {
+  0% {
+    transform: translate(0px, 0px);
+  }
+  100% {
+    transform: translate(0px, -100vh);
+  }
 }
