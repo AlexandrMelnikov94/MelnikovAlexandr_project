@@ -51,3 +51,18 @@ function shoot() {
   }, 2000)
   game.appendChild(bullet);
 }
+
+function randomValue(min, max) {
+  return Math.floor(Math.random() * (max - min)) + min;
+}
+
+function createEnemy() {
+  var enemy  = document.createElement('img');
+  enemy.src = 'img/enemy.png';
+  enemy.className = 'enemies';
+  enemy.style.top = 0 + 'px';
+  enemy.style.left = randomValue(0 , w) + 'px';
+  game.appendChild(enemy);
+}
+
+createEnemy();
