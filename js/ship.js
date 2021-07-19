@@ -8,7 +8,7 @@ function init() {
   w = window.innerWidth;
   h = window.innerHeight;
 
-  player.style.top = h - 100 + 'px';
+  player.style.top = h - 128 + 'px';
   player.style.left = w/2 - 50 + 'px';
 
 
@@ -33,8 +33,8 @@ var mouseup = function () {
 window.addEventListener('mouseup', mouseup);
 
 var mousemove = function (event) {
-  mouseX = event.clientX - 50;
-  player.style.left = Math.floor(mouseX / 20) * 20 + 10 + 'px';
+  mouseX = event.clientX - 64;
+  player.style.left = mouseX + 7 + 'px';
 }
 
 window.addEventListener('mousemove', mousemove);
@@ -44,8 +44,7 @@ function shoot() {
   bullet.src = 'img/bullet.png';
   bullet.className = 'bullets';
   bullet.style.top = h - 100 + 'px';
-  bullet.style.left = player.getBoundingClientRect().x + 40 + 'px';
-  // bullet.style.background = 'red';
+  bullet.style.left = player.getBoundingClientRect().x + 32 + 'px';
 
   setTimeout(function () {
     bullet.remove();
