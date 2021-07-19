@@ -8,7 +8,7 @@ function init() {
   w = window.innerWidth;
   h = window.innerHeight;
 
-  player.style.top = h - 100 + 'px';
+  player.style.top = h - 128 + 'px';
   player.style.left = w/2 - 50 + 'px';
 
 
@@ -44,8 +44,7 @@ function shoot() {
   bullet.src = 'img/bullet.png';
   bullet.className = 'bullets';
   bullet.style.top = h - 100 + 'px';
-  bullet.style.left = player.getBoundingClientRect().x + 40 + 'px';
-  // bullet.style.background = 'red';
+  bullet.style.left = player.getBoundingClientRect().x + 32 + 'px';
 
   setTimeout(function () {
     bullet.remove();
