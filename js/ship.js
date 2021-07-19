@@ -1,95 +1,54 @@
-(function () {
+var player = document.getElementById('player');
+var game = document.getElementById('game');
 
-  var fieldWidth = 1200;
-  var playerWidth = 100;
-  var bulletWidth = 50;
-  var area = document.getElementById('field');
-  var player = document.getElementById('player');
-  var bullet = document.getElementById('bullet');
+var shooting;
+var shootTimeout = 300;
 
-  var mainPlayer = new Player(player);
-  var newBullet = new Bullet(bullet);
+function init() {
+  w = window.innerWidth;
+  h = window.innerHeight;
 
-  var RequestAnimationFrame =
-    window.requestAnimationFrame ||
-    window.webkitRequestAnimationFrame ||
-    window.mozRequestAnimationFrame ||
-    window.oRequestAnimationFrame ||
-    window.msRequestAnimationFrame ||
+  player.style.top = h - 100 + 'px';
+  player.style.left = w/2 - 50 + 'px';
 
-    function (callback) {
-      window.setTimeout(callback, 1000 / 60);
-    };
 
-  function Player(player) {
-    this.speedPlayerX = 0;
-    player.style.left = fieldWidth / 2 - playerWidth / 2 + 'px';
-    this.Update = function () {
-      player.style.left = player.offsetLeft + this.speedPlayerX + 'px';
-      if (player.offsetLeft <= 0) {
-        player.style.left = '0px';
-      } else if (player.offsetLeft >= fieldWidth - playerWidth) {
-        player.style.left = fieldWidth - playerWidth + 'px';
-      }
-    }
+}
+
+init();
+
+mouseX = w / 2 - 50;
+
+var mousedown = function () {
+  shoot()
+  if (!shooting) {
+    shooting = setInterval(shoot, shootTimeout);
   }
+}
+window.addEventListener('mousedown', mousedown);
 
-// Движение
-  function movePlayer(e) {
-    if (e.keyCode === 37) {
-      mainPlayer.speedPlayerX = -10;
-    }
-    if (e.keyCode === 39) {
-      mainPlayer.speedPlayerX = 10;
-    }
-    if (e.keyCode === 32) {
-      newBullet.fireBullet();
-    }
-  }
+var mouseup = function () {
+  clearInterval(shooting);
+  shooting = NaN;
+}
+window.addEventListener('mouseup', mouseup);
 
-  function stopPlayerMove() {
-    mainPlayer.speedPlayerX = 0;
-  }
+var mousemove = function (event) {
+  mouseX = event.clientX - 50;
+  player.style.left = Math.floor(mouseX / 20) * 20 + 10 + 'px';
+}
 
-  //Стрельба
+window.addEventListener('mousemove', mousemove);
 
+function shoot() {
+  var bullet = document.createElement('img');
+  bullet.src = 'img/bullet.png';
+  bullet.className = 'bullets';
+  bullet.style.top = h - 100 + 'px';
+  bullet.style.left = player.getBoundingClientRect().x + 40 + 'px';
+  // bullet.style.background = 'red';
 
-  function Bullet (bullet) {
-    this.speedY = 10;
-    this.Update = function () {
-      bullet.style.top = bullet.offsetTop - this.speedY + 'px';
-    }
-    this.createBulletElement = function () {
-      bullet = document.createElement('img');
-      bullet.src = 'img/bullet.png';
-      bullet.id = 'bullet';
-      bullet.style.bottom = playerWidth + 'px';
-      bullet.style.left = player.style.left;
-      return bullet;
-    }
-    this.fireBullet = function () {
-      bullet = this.createBulletElement()
-      area.appendChild(bullet);
-    }
-  }
-
-
-
-  //-----------------------------------------------------------------------------------------------------------
-
-  function Start() {
-    newBullet.Update();
-    mainPlayer.Update();
-    RequestAnimationFrame(Start);
-  }
-
-  function initGame() {
-    RequestAnimationFrame(Start);
-  }
-
-
-  window.onload = initGame;
-  window.onkeydown = movePlayer;
-  window.onkeyup = stopPlayerMove;
-//
-}());
+  setTimeout(function () {
+    bullet.remove();
+  }, 2000)
+  game.appendChild(bullet);
+}
