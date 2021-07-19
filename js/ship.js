@@ -33,8 +33,8 @@ var mouseup = function () {
 window.addEventListener('mouseup', mouseup);
 
 var mousemove = function (event) {
-  mouseX = event.clientX - 50;
-  player.style.left = Math.floor(mouseX / 20) * 20 + 10 + 'px';
+  mouseX = event.clientX - 64;
+  player.style.left = mouseX + 7 + 'px';
 }
 
 window.addEventListener('mousemove', mousemove);
