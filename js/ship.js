@@ -2,7 +2,7 @@ var player = document.getElementById('player');
 var game = document.getElementById('game');
 
 var shooting;
-var shootTimeout = 300;
+var shootTimeout = 200;
 
 function init() {
   w = window.innerWidth;
@@ -73,4 +73,31 @@ function createEnemy() {
 }
 
 createEnemy();
-enemyCreateTimer = setInterval(createEnemy, 3000);
+enemyCreateTimer = setInterval(createEnemy, 1000);
+
+
+
+function killEnemy() {
+  var bullets = document.getElementsByClassName('bullets');
+  var enemies = document.getElementsByClassName('enemies');
+
+  for (var enemyCounter = 0; enemyCounter < enemies.length; enemyCounter++) {
+    if (enemies[enemyCounter].getBoundingClientRect().top > h-50) {
+    }
+    for (var bulletCounter = 0; bulletCounter < bullets.length; bulletCounter++) {
+      if (bullets[bulletCounter] && enemies[enemyCounter]) {
+        var bullet = bullets[bulletCounter].getBoundingClientRect();
+        var enemy = enemies[enemyCounter].getBoundingClientRect();
+        if (bullet.x < enemy.x + enemy.width &&
+          bullet.x + bullet.width > enemy.x &&
+          bullet.y < enemy.y + enemy.height &&
+          bullet.y + bullet.height > enemy.y
+        ) {
+          bullets[bulletCounter].remove();
+          enemies[enemyCounter].remove();
+        }
+      }
+    }
+  }
+}
+hitInterval = setInterval(killEnemy, 0);
