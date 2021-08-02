@@ -3,6 +3,7 @@ var game = document.getElementById('game');
 
 var shooting;
 var shootTimeout = 200;
+var score = 0;
 
 function init() {
   w = window.innerWidth;
@@ -95,6 +96,10 @@ function killEnemy() {
         ) {
           bullets[bulletCounter].remove();
           enemies[enemyCounter].remove();
+
+          score++;
+
+          document.getElementById('score').innerHTML = score;
         }
       }
     }
