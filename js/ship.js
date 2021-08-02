@@ -90,6 +90,7 @@ function startGame() {
 
     for (var enemyCounter = 0; enemyCounter < enemies.length; enemyCounter++) {
       if (enemies[enemyCounter].getBoundingClientRect().top > h - 50) {
+        endGame();
       }
       for (var bulletCounter = 0; bulletCounter < bullets.length; bulletCounter++) {
         if (bullets[bulletCounter] && enemies[enemyCounter]) {
@@ -111,6 +112,15 @@ function startGame() {
       }
     }
   }
-
   hitInterval = setInterval(killEnemy, 0);
+
+  function endGame() {
+    document.getElementById('end-score').style.display = 'flex';
+    document.getElementById('end-score').innerHTML = 'Your score: ' + score;
+    var enemyCounter =document.getElementsByClassName('enemies');
+    for (var i = 0; i < enemyCounter.length; i++) {
+      enemyCounter[i].style.display = 'none';
+    }
+    clearEnemyCreateTimer = clearInterval(enemyCreateTimer);
+  }
 }
