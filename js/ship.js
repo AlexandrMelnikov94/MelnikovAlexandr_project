@@ -13,6 +13,10 @@ function startGame() {
   var score = 0;
   document.getElementById('score').innerHTML = '0';
 
+  let backgroundSound = new Audio('audio/backgroundsound.mp3');
+  backgroundSound.play();
+  backgroundSound.loop = true;
+
   function init() {
     w = window.innerWidth;
     h = window.innerHeight;
@@ -74,7 +78,7 @@ function startGame() {
     enemy.src = 'img/enemy.png';
     enemy.className = 'enemies';
     enemy.style.top = 0 + 'px';
-    enemy.style.left = randomValue(0, w) + 'px';
+    enemy.style.left = randomValue(100, w - 100) + 'px';
     enemy.style.transition = 10 + 's';
     game.appendChild(enemy);
     setTimeout(function () {
@@ -151,6 +155,7 @@ function startGame() {
     for (var i = 0; i < enemyCounter.length; i++) {
       enemyCounter[i].style.display = 'none';
     }
+    backgroundSound.pause();
     clearInterval(enemyCreateTimer);
     clearInterval(shooting);
     clearInterval(hitInterval);
