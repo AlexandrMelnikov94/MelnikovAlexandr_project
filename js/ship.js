@@ -126,11 +126,15 @@ function startGame() {
     var enemyCounter = document.getElementsByClassName('enemies');
     for (var i = 0; i < enemyCounter.length; i++) {
       enemyCounter[i].style.display = 'none';
+      // enemyCounter[i].remove();
     }
-    clearEnemyCreateTimer = clearInterval(enemyCreateTimer);
-    stopShooting = clearInterval(shooting);
+    clearInterval(enemyCreateTimer);
+    clearInterval(shooting);
+    clearInterval(hitInterval);
     window.removeEventListener('mousedown', mousedown);
     window.removeEventListener('mousemove', mousemove);
+
+    score = 0;
   }
 
   function restartGame() {
