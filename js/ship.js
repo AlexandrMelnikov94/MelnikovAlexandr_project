@@ -47,6 +47,10 @@ function startGame() {
 
 //Стрельба
   function shoot() {
+
+    let shootSound = new Audio('audio/laser-blast-descend_gy7c5deo.mp3');
+    shootSound.play();
+
     var bullet = document.createElement('img');
     bullet.src = 'img/bullet.png';
     bullet.className = 'bullets';
@@ -102,18 +106,38 @@ function startGame() {
             bullet.y < enemy.y + enemy.height &&
             bullet.y + bullet.height > enemy.y
           ) {
+            let explosionSound = new Audio('audio/explosion.mp3');
+            explosionSound.play();
             bullets[bulletCounter].remove();
             enemies[enemyCounter].remove();
 
             score++;
 
             document.getElementById('score').innerHTML = score;
+
+            explosion(enemy.x, enemy.y);
           }
         }
       }
     }
   }
   hitInterval = setInterval(killEnemy, 0);
+
+  function explosion(x,y) {
+    var explosion = document.createElement('img');
+    explosion.className = 'explosion';
+
+    explosion.style.left = x - 10 + 'px';
+    explosion.style.top = y - 10 + 'px';
+
+    explosion.src = 'img/explosion.png';
+    game.appendChild(explosion);
+
+    setTimeout(function () {
+      explosion.remove()
+    }, 500)
+
+  }
 
   function endGame() {
     document.getElementById('player').style.display = 'none';
@@ -126,7 +150,6 @@ function startGame() {
     var enemyCounter = document.getElementsByClassName('enemies');
     for (var i = 0; i < enemyCounter.length; i++) {
       enemyCounter[i].style.display = 'none';
-      // enemyCounter[i].remove();
     }
     clearInterval(enemyCreateTimer);
     clearInterval(shooting);
