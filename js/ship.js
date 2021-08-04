@@ -11,6 +11,7 @@ function startGame() {
   var shooting;
   var shootTimeout = 200;
   var score = 0;
+  document.getElementById('score').innerHTML = '0';
 
   function init() {
     w = window.innerWidth;
@@ -115,12 +116,30 @@ function startGame() {
   hitInterval = setInterval(killEnemy, 0);
 
   function endGame() {
+    document.getElementById('player').style.display = 'none';
     document.getElementById('end-score').style.display = 'flex';
     document.getElementById('end-score').innerHTML = 'Your score: ' + score;
-    var enemyCounter =document.getElementsByClassName('enemies');
+    b = document.getElementById('end-score').appendChild(document.createElement('button'));
+    b.id = 'button-restart';
+    b.innerText = 'Restart';
+    b.onclick = restartGame;
+    var enemyCounter = document.getElementsByClassName('enemies');
     for (var i = 0; i < enemyCounter.length; i++) {
       enemyCounter[i].style.display = 'none';
+      // enemyCounter[i].remove();
     }
-    clearEnemyCreateTimer = clearInterval(enemyCreateTimer);
+    clearInterval(enemyCreateTimer);
+    clearInterval(shooting);
+    clearInterval(hitInterval);
+    window.removeEventListener('mousedown', mousedown);
+    window.removeEventListener('mousemove', mousemove);
+
+    score = 0;
   }
+
+  function restartGame() {
+    startGame();
+    document.getElementById('end-score').style.display = 'none';
+  }
+
 }
