@@ -1,3 +1,4 @@
+var score = 0;
 
 function startGame() {
 
@@ -10,7 +11,6 @@ function startGame() {
 
   var shooting;
   var shootTimeout = 200;
-  var score = 0;
   document.getElementById('score').innerHTML = '0';
 
   let backgroundSound = new Audio('audio/backgroundsound.mp3');
@@ -147,10 +147,24 @@ function startGame() {
     document.getElementById('player').style.display = 'none';
     document.getElementById('end-score').style.display = 'flex';
     document.getElementById('end-score').innerHTML = 'Your score: ' + score;
-    b = document.getElementById('end-score').appendChild(document.createElement('button'));
-    b.id = 'button-restart';
-    b.innerText = 'Restart';
-    b.onclick = restartGame;
+    let endScoreResult = document.getElementById('end-score').appendChild(document.createElement('button'));
+    endScoreResult.id = 'button-restart';
+    endScoreResult.innerText = 'Restart';
+    endScoreResult.onclick = restartGame;
+
+    let endScoreName = document.getElementById('end-score').appendChild(document.createElement('p'));
+    endScoreName.id = 'result-text';
+    endScoreName.innerText = 'Enter your name';
+
+    let endScoreNameInput = document.getElementById('end-score').appendChild(document.createElement('input'));
+    endScoreNameInput.id = 'resultName';
+    endScoreNameInput.value = 'rrrrr';
+
+    let saveResultButton = document.getElementById('end-score').appendChild(document.createElement('button'));
+    saveResultButton.id = 'save';
+    saveResultButton.innerText = 'Save';
+    saveResultButton.onclick = saveGame;
+
     var enemyCounter = document.getElementsByClassName('enemies');
     for (var i = 0; i < enemyCounter.length; i++) {
       enemyCounter[i].style.display = 'none';
@@ -161,13 +175,17 @@ function startGame() {
     clearInterval(hitInterval);
     window.removeEventListener('mousedown', mousedown);
     window.removeEventListener('mousemove', mousemove);
-
-    score = 0;
   }
 
   function restartGame() {
+    score = 0;
     startGame();
     document.getElementById('end-score').style.display = 'none';
+  }
+
+  function saveGame() {
+    document.getElementById('resultName').value;
+    saveResult();
   }
 
 }
