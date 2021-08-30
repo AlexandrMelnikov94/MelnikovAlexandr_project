@@ -1,8 +1,6 @@
-
 var scoreStorage = new AjaxStorage();
 
 function saveResult() {
-  console.log(document.getElementById('resultName').value)
   var playerName = document.getElementById('resultName').value;
   var fHash = {};
 
@@ -15,15 +13,15 @@ function saveResult() {
 }
 
 function showResult() {
-  var showMenuInfo = scoreStorage.getKeys();
+  var showScores = scoreStorage.getKeys();
   var resultHTML = '';
 
-  if (showMenuInfo.length)
+  if (showScores.length)
   {
-    for (var i = 0; i < showMenuInfo.length; i++) {
-      var playerName = showMenuInfo[i].toLowerCase().trim();
+    for (var i = 0; i < showScores.length; i++) {
+      var playerName = showScores[i].toLowerCase().trim();
       var getPlayerScore = scoreStorage.getValue(playerName);
-      resultHTML += (i + 1) + '. ' + showMenuInfo[i] + " " + getPlayerScore.score + '<br>';
+        resultHTML += (i + 1) + '. ' + showScores[i] + " " + getPlayerScore.score + '<br>';
     }
   } else {
     resultHTML = 'Таблица пустая.';

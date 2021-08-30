@@ -12,7 +12,7 @@ function AjaxStorage() {
       dataType: "json",
       data: {
         f: "READ",
-        n: "Melnikov_gameScore1"
+        n: "Melnikov_gameScore2"
       },
       success: update,
       error: errorHandler
@@ -42,7 +42,7 @@ function AjaxStorage() {
         dataType: "json",
         data: {
           f: 'LOCKGET',
-          n: 'Melnikov_gameScore1',
+          n: 'Melnikov_gameScore2',
           p: updatePassword
         },
         cache: false,
@@ -60,7 +60,7 @@ function AjaxStorage() {
         dataType: "json",
         data: {
           f: 'UPDATE',
-          n: 'Melnikov_gameScore1',
+          n: 'Melnikov_gameScore2',
           v: JSON.stringify(self.hashStorage),
           p: updatePassword
         },
