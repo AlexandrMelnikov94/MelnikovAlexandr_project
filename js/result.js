@@ -1,9 +1,9 @@
 function AjaxStorage() {
-  var self = this;
-  var updatePassword;
+  const self = this;
+  let updatePassword;
   self.hashStorage = {};
 
-  var AjaxHandlerScript = "http://fe.it-academy.by/AjaxStringStorage2.php";
+  const AjaxHandlerScript = "http://fe.it-academy.by/AjaxStringStorage2.php";
 
   $.ajax(
     {
@@ -94,8 +94,8 @@ function AjaxStorage() {
   }
 
   self.getKeys = function () {
-    var keys = [];
-    for (var key in self.hashStorage) {
+    let keys = [];
+    for (let key in self.hashStorage) {
       keys.push(" " + key);
     }
     return keys;

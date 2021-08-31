@@ -1,9 +1,9 @@
 window.onhashchange = SwitchToStateFromURLHash;
-var SPAStateH = {};
+let SPAStateH = {};
 
 function SwitchToStateFromURLHash() {
-  var URLHash = window.location.hash;
-  var StateJSON = decodeURIComponent(URLHash.substr(1));
+  const URLHash = window.location.hash;
+  const StateJSON = decodeURIComponent(URLHash.substr(1));
 
   if (StateJSON !== "")
     SPAStateH = JSON.parse(StateJSON);
@@ -14,12 +14,13 @@ function SwitchToStateFromURLHash() {
   console.log('Новое состояние приложения:');
   console.log(SPAStateH);
 
-  var PageHTML = "";
+  let PageHTML = "";
 
   switch (SPAStateH.pagename) {
     case 'Main':
       PageHTML +=
         "<div id=\"menu\">\n" +
+        "    <h2>Space shooter</h2>" +
         "    <button  onclick=\"startGame()\">Start</button>\n" +
         "    <button onclick=\"SwitchToAboutPage()\">About</button>\n" +
         "    <button onclick=\"SwitchToRules()\">Rules</button>\n" +
@@ -29,22 +30,25 @@ function SwitchToStateFromURLHash() {
     case 'Rules':
       PageHTML +=
         "<div id=\"rules\">\n" +
-        "<p>Здесь будут правила игры</p>\n" +
-        "<button onclick =\"SwitchToMainPage()\"> На главную</button>" +
+        "<p>You need to destroy enemy ships.<br>" +
+        "1. Control the spaceship with your mouse.<br>" +
+        "2. Click the left mouse button to shoot<br>" +
+        "<br>Good luck!!!</p>\n" +
+        "<button onclick =\"SwitchToMainPage()\">To main</button>" +
         "  </div>";
       break;
     case 'About':
       PageHTML +=
         "<div id=\"about\">\n" +
-        "<p>Здесь будет информация о нас</p>\n" +
-        "<button onclick =\"SwitchToMainPage()\"> На главную</button>";
+        "<p>Hello, my name is Sasha. <br>This is my first JavaScript project.</p>\n" +
+        "<button onclick =\"SwitchToMainPage()\">To main</button>";
       break;
     case 'Records':
       PageHTML +=
         "<div id=\"records\">\n" +
-        "<p>Здесь будут рекорды</p>\n" +
-        "<button onclick =\"SwitchToMainPage()\"> На главную</button>" +
-      "<button onclick =\"showResult()\"> Показать</button>" +
+        "<h2>Highscore</h2>\n" +
+        "<button onclick =\"SwitchToMainPage()\">To main</button>" +
+        "<button onclick =\"showResult()\">Show</button>" +
         "<div id= \"message\">\n";
       break;
   }
@@ -70,4 +74,6 @@ function SwitchToAboutPage() {
 function SwitchToRecords() {
   SwitchToState({pagename: 'Records'});
 }
+
+
 SwitchToStateFromURLHash();
