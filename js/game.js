@@ -1,5 +1,10 @@
 let score = 0;
 
+// Функция рандома
+function randomValue(min, max) {
+  return Math.floor(Math.random() * (max - min)) + min;
+}
+
 function startGame() {
 
   document.getElementById('menu').style.display = 'none';
@@ -65,11 +70,6 @@ function startGame() {
       bullet.remove();
     }, 2000);
     game.appendChild(bullet);
-  }
-
-// Функция рандома
-  function randomValue(min, max) {
-    return Math.floor(Math.random() * (max - min)) + min;
   }
 
 //Враги
@@ -148,7 +148,7 @@ function startGame() {
   }
 
   function scoreMes() {
-   alert('Game saved');
+    alert('Game saved');
   }
 
   function endGame() {
@@ -177,7 +177,7 @@ function startGame() {
     endScoreResult.innerText = 'Restart';
     endScoreResult.onclick = restartGame;
 
-    const toMain  = document.getElementById('end-score').appendChild(document.createElement('button'));
+    const toMain = document.getElementById('end-score').appendChild(document.createElement('button'));
     toMain.id = 'tomain';
     toMain.innerText = 'To Main';
     toMain.onclick = reload;
