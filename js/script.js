@@ -1,8 +1,8 @@
-var scoreStorage = new AjaxStorage();
+const scoreStorage = new AjaxStorage();
 
 function saveResult() {
-  var playerName = document.getElementById('resultName').value;
-  var fHash = {};
+  const playerName = document.getElementById('resultName').value;
+  let fHash = {};
 
   if (playerName) {
     fHash.score = score;
@@ -13,14 +13,14 @@ function saveResult() {
 }
 
 function showResult() {
-  var showScores = scoreStorage.getKeys();
-  var resultHTML = '';
+  const showScores = scoreStorage.getKeys();
+  let resultHTML = '';
 
   if (showScores.length)
   {
-    for (var i = 0; i < showScores.length; i++) {
-      var playerName = showScores[i].toLowerCase().trim();
-      var getPlayerScore = scoreStorage.getValue(playerName);
+    for (let i = 0; i < showScores.length; i++) {
+      let playerName = showScores[i].toLowerCase().trim();
+      let getPlayerScore = scoreStorage.getValue(playerName);
         resultHTML += (i + 1) + '. ' + showScores[i] + " " + getPlayerScore.score + '<br>';
     }
   } else {

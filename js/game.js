@@ -1,4 +1,9 @@
-var score = 0;
+let score = 0;
+
+// Функция рандома
+function randomValue(min, max) {
+  return Math.floor(Math.random() * (max - min)) + min;
+}
 
 function startGame() {
 
@@ -6,14 +11,14 @@ function startGame() {
   document.getElementById('player').style.display = 'block';
 
 
-  var player = document.getElementById('player');
-  var game = document.getElementById('game');
+  const player = document.getElementById('player');
+  const game = document.getElementById('game');
 
-  var shooting;
-  var shootTimeout = 200;
+  let shooting;
+  const shootTimeout = 200;
   document.getElementById('score').innerHTML = '0';
 
-  let backgroundSound = new Audio('audio/backgroundsound.mp3');
+  const backgroundSound = new Audio('audio/backgroundsound.mp3');
   backgroundSound.play();
   backgroundSound.loop = true;
 
@@ -28,7 +33,7 @@ function startGame() {
   init();
 
 // Работа с мышкой
-  var mousedown = function () {
+  const mousedown = function () {
     shoot()
     if (!shooting) {
       shooting = setInterval(shoot, shootTimeout);
@@ -36,13 +41,13 @@ function startGame() {
   }
   window.addEventListener('mousedown', mousedown);
 
-  var mouseup = function () {
+  const mouseup = function () {
     clearInterval(shooting);
     shooting = NaN;
   }
   window.addEventListener('mouseup', mouseup);
 
-  var mousemove = function (event) {
+  const mousemove = function (event) {
     mouseX = event.clientX - 64;
     player.style.left = mouseX + 7 + 'px';
   }
@@ -52,10 +57,10 @@ function startGame() {
 //Стрельба
   function shoot() {
 
-    let shootSound = new Audio('audio/laser-blast-descend_gy7c5deo.mp3');
+    const shootSound = new Audio('audio/laser-blast-descend_gy7c5deo.mp3');
     shootSound.play();
 
-    var bullet = document.createElement('img');
+    const bullet = document.createElement('img');
     bullet.src = 'img/bullet.png';
     bullet.className = 'bullets';
     bullet.style.top = h - 100 + 'px';
@@ -67,14 +72,9 @@ function startGame() {
     game.appendChild(bullet);
   }
 
-// Функция рандома
-  function randomValue(min, max) {
-    return Math.floor(Math.random() * (max - min)) + min;
-  }
-
 //Враги
   function createEnemy() {
-    var enemy = document.createElement('img');
+    const enemy = document.createElement('img');
     enemy.src = 'img/enemy.png';
     enemy.className = 'enemies';
     enemy.style.top = 0 + 'px';
@@ -90,27 +90,26 @@ function startGame() {
   }
 
   createEnemy();
-  enemyCreateTimer = setInterval(createEnemy, 1000);
-
+  enemyCreateTimer = setInterval(createEnemy, 500);
 
   function killEnemy() {
-    var bullets = document.getElementsByClassName('bullets');
-    var enemies = document.getElementsByClassName('enemies');
+    const bullets = document.getElementsByClassName('bullets');
+    const enemies = document.getElementsByClassName('enemies');
 
-    for (var enemyCounter = 0; enemyCounter < enemies.length; enemyCounter++) {
+    for (let enemyCounter = 0; enemyCounter < enemies.length; enemyCounter++) {
       if (enemies[enemyCounter].getBoundingClientRect().top > h - 50) {
         endGame();
       }
-      for (var bulletCounter = 0; bulletCounter < bullets.length; bulletCounter++) {
+      for (let bulletCounter = 0; bulletCounter < bullets.length; bulletCounter++) {
         if (bullets[bulletCounter] && enemies[enemyCounter]) {
-          var bullet = bullets[bulletCounter].getBoundingClientRect();
-          var enemy = enemies[enemyCounter].getBoundingClientRect();
+          const bullet = bullets[bulletCounter].getBoundingClientRect();
+          const enemy = enemies[enemyCounter].getBoundingClientRect();
           if (bullet.x < enemy.x + enemy.width &&
             bullet.x + bullet.width > enemy.x &&
             bullet.y < enemy.y + enemy.height &&
             bullet.y + bullet.height > enemy.y
           ) {
-            let explosionSound = new Audio('audio/explosion.mp3');
+            const explosionSound = new Audio('audio/explosion.mp3');
             explosionSound.play();
             bullets[bulletCounter].remove();
             enemies[enemyCounter].remove();
@@ -125,10 +124,11 @@ function startGame() {
       }
     }
   }
+
   hitInterval = setInterval(killEnemy, 0);
 
-  function explosion(x,y) {
-    var explosion = document.createElement('img');
+  function explosion(x, y) {
+    const explosion = document.createElement('img');
     explosion.className = 'explosion';
 
     explosion.style.left = x - 10 + 'px';
@@ -143,30 +143,47 @@ function startGame() {
 
   }
 
+  function reload() {
+    document.location.reload();
+  }
+
+  function scoreMes() {
+    alert('Game saved');
+  }
+
   function endGame() {
     document.getElementById('player').style.display = 'none';
     document.getElementById('end-score').style.display = 'flex';
     document.getElementById('end-score').innerHTML = 'Your score: ' + score;
-    let endScoreResult = document.getElementById('end-score').appendChild(document.createElement('button'));
+
+    const endScoreName = document.getElementById('end-score').appendChild(document.createElement('p'));
+    endScoreName.id = 'result-text';
+    endScoreName.innerText = 'Enter your name';
+
+    const endScoreNameInput = document.getElementById('end-score').appendChild(document.createElement('input'));
+    endScoreNameInput.id = 'resultName';
+
+    const massage = document.getElementById('end-score').appendChild(document.createElement('p'));
+    massage.id = 'message';
+
+    const saveResultButton = document.getElementById('end-score').appendChild(document.createElement('button'));
+    saveResultButton.id = 'save';
+    saveResultButton.innerText = 'Save';
+    saveResultButton.onclick = saveGame;
+    saveResultButton.onclick = scoreMes;
+
+    const endScoreResult = document.getElementById('end-score').appendChild(document.createElement('button'));
     endScoreResult.id = 'button-restart';
     endScoreResult.innerText = 'Restart';
     endScoreResult.onclick = restartGame;
 
-    let endScoreName = document.getElementById('end-score').appendChild(document.createElement('p'));
-    endScoreName.id = 'result-text';
-    endScoreName.innerText = 'Enter your name';
+    const toMain = document.getElementById('end-score').appendChild(document.createElement('button'));
+    toMain.id = 'tomain';
+    toMain.innerText = 'To Main';
+    toMain.onclick = reload;
 
-    let endScoreNameInput = document.getElementById('end-score').appendChild(document.createElement('input'));
-    endScoreNameInput.id = 'resultName';
-    endScoreNameInput.value = 'rrrrr';
-
-    let saveResultButton = document.getElementById('end-score').appendChild(document.createElement('button'));
-    saveResultButton.id = 'save';
-    saveResultButton.innerText = 'Save';
-    saveResultButton.onclick = saveGame;
-
-    var enemyCounter = document.getElementsByClassName('enemies');
-    for (var i = 0; i < enemyCounter.length; i++) {
+    const enemyCounter = document.getElementsByClassName('enemies');
+    for (let i = 0; i < enemyCounter.length; i++) {
       enemyCounter[i].style.display = 'none';
     }
     backgroundSound.pause();
@@ -187,5 +204,4 @@ function startGame() {
     document.getElementById('resultName').value;
     saveResult();
   }
-
 }
