@@ -147,10 +147,6 @@ function startGame() {
     document.location.reload();
   }
 
-  function scoreMes() {
-    alert('Game saved');
-  }
-
   function endGame() {
     document.getElementById('player').style.display = 'none';
     document.getElementById('end-score').style.display = 'flex';
@@ -170,7 +166,6 @@ function startGame() {
     saveResultButton.id = 'save';
     saveResultButton.innerText = 'Save';
     saveResultButton.onclick = saveGame;
-    saveResultButton.onclick = scoreMes;
 
     const endScoreResult = document.getElementById('end-score').appendChild(document.createElement('button'));
     endScoreResult.id = 'button-restart';
