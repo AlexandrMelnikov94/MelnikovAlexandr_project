@@ -3,7 +3,7 @@ function AjaxStorage() {
   let updatePassword;
   self.hashStorage = {};
 
-  const AjaxHandlerScript = "http://fe.it-academy.by/AjaxStringStorage2.php";
+  const AjaxHandlerScript = "https://fe.it-academy.by/AjaxStringStorage2.php";
 
   $.ajax(
     {

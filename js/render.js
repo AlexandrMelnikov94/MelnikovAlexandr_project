@@ -75,5 +75,4 @@ function SwitchToRecords() {
   SwitchToState({pagename: 'Records'});
 }
 
-
 SwitchToStateFromURLHash();
